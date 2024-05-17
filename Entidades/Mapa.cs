@@ -33,6 +33,8 @@ namespace Entidades
         public Mapa(string titulo, string autor, int anio, string numNormalizado, string codebar, int ancho, int alto)
             : base(titulo,autor,anio,numNormalizado,codebar)
         {
+            this.ancho = ancho;
+            this.alto = alto;
 
         }
 
@@ -48,24 +50,6 @@ namespace Entidades
         }
 
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
