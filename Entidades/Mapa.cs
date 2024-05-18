@@ -38,15 +38,24 @@ namespace Entidades
 
         }
 
+        public static bool operator !=(Mapa m1, Mapa m2)
+        {
+            return !(m1 == m2);
+        }
+
         public static bool operator ==(Mapa m1, Mapa m2)
         {
             return m1.Barcode == m2.Barcode || m1.Titulo == m2.Titulo && m1.Autor == m2.Autor &&
                 m1.Anio == m2.Anio && m1.Superficie == m2.Superficie;
         }
 
-        public static bool operator !=(Mapa m1, Mapa m2)
+        public override string ToString()
         {
-            return !(m1==m2);
+            StringBuilder informacion = new StringBuilder();
+            informacion.Append(base.ToString());
+            informacion.AppendLine($"Cód. de barras: {this.Barcode}");
+            informacion.AppendLine($"Superficie: {this.alto} * {this.ancho} = {this.Superficie} cm2.");
+            return informacion.ToString();
         }
 
         #endregion

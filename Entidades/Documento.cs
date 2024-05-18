@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,9 +43,24 @@ namespace Entidades
 
         public bool AvanzarEstado()
         {
-            /*FALTA DARLE UTILIDAD XD*/
+            bool retorno = false;
 
-            return false;
+            //obtengo los valores de paso en una matriz
+            Paso[] pasos = (Paso[])Enum.GetValues(typeof(Paso));
+
+            int pasoActual = Array.IndexOf(pasos, this.estado);
+
+            if (pasoActual >= 0 && pasoActual < pasos.Length - 1)
+            {
+                this.estado = pasos[pasoActual +1];
+                retorno = true;
+            }
+            else
+            {
+                return retorno;
+            }
+            return retorno;
+
         }
 
         public Documento(string titulo, string autor, int anio, string numNormalizado, string barcode)
@@ -64,11 +80,8 @@ namespace Entidades
             informacion.AppendLine($"Título: {this.titulo}");
             informacion.AppendLine($"Autor: {this.autor}");
             informacion.AppendLine($"Año: {this.anio}");
-            //quise añadir el barcode, pero el libro y su ISBM van acá :c
             return informacion.ToString();
 		}
-             
-        
 
         #endregion
 

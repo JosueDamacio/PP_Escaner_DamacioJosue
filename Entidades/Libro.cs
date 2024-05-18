@@ -31,6 +31,10 @@ namespace Entidades
             this.numPaginas = numPaginas;
         }
 
+        public static bool operator !=(Libro l1, Libro l2)
+        {
+            return !(l1 == l2);
+        }
 
         public static bool operator ==(Libro l1, Libro l2)
         {
@@ -38,11 +42,16 @@ namespace Entidades
                 l1.Titulo == l2.Titulo && l1.Autor ==l2.Autor;
         }
 
-        public static bool operator !=(Libro l1, Libro l2)
+        
+        public override string ToString()
         {
-            return !(l1==l2);
+            StringBuilder informacion = new StringBuilder();
+            informacion.Append(base.ToString());
+            informacion.AppendLine($"ISBN: {this.ISBN}");
+            informacion.AppendLine($"Cód. de barras: {this.Barcode}");
+            informacion.AppendLine($"Número de páginas: {this.numPaginas}.");
+            return informacion.ToString();
         }
-
 
 
         #endregion
