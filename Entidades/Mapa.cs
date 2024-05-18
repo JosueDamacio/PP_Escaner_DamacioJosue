@@ -31,7 +31,7 @@ namespace Entidades
         #region Metodos
 
         public Mapa(string titulo, string autor, int anio, string numNormalizado, string codebar, int ancho, int alto)
-            : base(titulo,autor,anio,numNormalizado,codebar)
+            : base(titulo, autor, anio, numNormalizado, codebar)
         {
             this.ancho = ancho;
             this.alto = alto;
@@ -57,11 +57,7 @@ namespace Entidades
             informacion.AppendLine($"Superficie: {this.alto} * {this.ancho} = {this.Superficie} cm2.");
             return informacion.ToString();
         }
-
         #endregion
-
-
-
 
     }
 }

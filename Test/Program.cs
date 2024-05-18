@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Test
+﻿namespace Test
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Esto es de Josue Damacio");
+            Console.WriteLine("Hello, World!");
         }
     }
 }

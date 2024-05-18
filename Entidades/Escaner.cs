@@ -47,6 +47,7 @@ namespace Entidades
 
         public Escaner(string marca, TipoDoc tipo)
         {
+            this.marca = marca;
             this.listDocuemnto = new List<Documento>();
 
             if (tipo == TipoDoc.libro)
@@ -59,7 +60,7 @@ namespace Entidades
             }
         }
 
-        public static bool operator != (Escaner e, Documento d)
+        public static bool operator !=(Escaner e, Documento d)
         {
             return !(e == d);
         }
@@ -75,7 +76,7 @@ namespace Entidades
             return false;
         }
 
-        public static bool operator == (Escaner e, Documento d)
+        public static bool operator ==(Escaner e, Documento d)
         {
             //si el Doc no está en la lista, devuelve false
             if (e.listDocuemnto.IndexOf(d) == -1)

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Entidades
 {
@@ -15,7 +10,7 @@ namespace Entidades
         Paso estado;
         string numNormalizado;
         string titulo;
-        
+
         public enum Paso
         {
             Inicio,
@@ -26,17 +21,17 @@ namespace Entidades
         }
         #region Propiedades
 
-        public int Anio {get => this.anio; }
+        public int Anio { get => this.anio; }
 
-        public string Autor {get => this.autor;}
+        public string Autor { get => this.autor; }
 
-        public string Barcode {get => this.barcode;}
+        public string Barcode { get => this.barcode; }
 
-        public Paso Estado {get => this.estado;}
+        public Paso Estado { get => this.estado; }
 
-        protected string NumNormalizado {get => this.numNormalizado;}
+        protected string NumNormalizado { get => this.numNormalizado; }
 
-        public string Titulo {get => this.titulo;}
+        public string Titulo { get => this.titulo; }
         #endregion
 
         #region Metodos
@@ -52,7 +47,7 @@ namespace Entidades
 
             if (pasoActual >= 0 && pasoActual < pasos.Length - 1)
             {
-                this.estado = pasos[pasoActual +1];
+                this.estado = pasos[pasoActual + 1];
                 retorno = true;
             }
             else
@@ -72,20 +67,18 @@ namespace Entidades
             this.barcode = barcode;
             this.estado = Paso.Inicio;
         }
-        
+
         //le hacemos override para no repetir codigo y usarlo en clases hijas ;D
         public override string ToString()
-		{
-			StringBuilder informacion = new StringBuilder();
+        {
+            StringBuilder informacion = new StringBuilder();
             informacion.AppendLine($"Título: {this.titulo}");
             informacion.AppendLine($"Autor: {this.autor}");
             informacion.AppendLine($"Año: {this.anio}");
             return informacion.ToString();
-		}
+        }
 
         #endregion
-
-
 
     }
 }

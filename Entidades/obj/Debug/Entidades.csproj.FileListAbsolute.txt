@@ -1,2 +1,0 @@
-C:\Users\Usuario\Desktop\PP_Escaner_DamacioJosue\Entidades\obj\Debug\Entidades.csproj.AssemblyReference.cache
-C:\Users\Usuario\Desktop\PP_Escaner_DamacioJosue\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
