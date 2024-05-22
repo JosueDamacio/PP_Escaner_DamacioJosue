@@ -7,7 +7,7 @@ namespace Test
         static void Main(string[] args)
         {
             Console.WriteLine("Josue Damacio");
-            Console.WriteLine("+ El proyecto es funcional, solo tiene un error");
+            Console.WriteLine("+ El proyecto es funcional, no tiene ningun error :D");
             Console.WriteLine("");
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -70,24 +71,46 @@ namespace Entidades
         public static bool operator +(Escaner e, Documento d)
         {   // se avanza el estado del doc y se agrega a la lista
             // si el docuemnto no está en el escaner y está en paso inicio
+            // tambien se valida que no haya mapas en procesos tecnicos ni libros en mapoteca
             if (e != d && d.Estado == Documento.Paso.Inicio)
             {
-                d.AvanzarEstado();
-                e.listDocuemnto.Add(d);
-                return true;
+                if (e.locacion == Departamento.mapoteca && d is Mapa)
+                {
+                    d.AvanzarEstado();
+                    e.listDocuemnto.Add(d);
+                    return true;
+                }
+                else if (e.locacion == Departamento.procesosTecnicos && d is Libro)
+                {
+                    d.AvanzarEstado();
+                    e.listDocuemnto.Add(d);
+                    return true;
+                }
+                return false;
             }
             else { return false; }
         }
 
         public static bool operator ==(Escaner e, Documento d)
         {   //se recorre la lista de documentos y si se encuentra el
-            //documento devuelve true, si no la encuentra false
+            //documento los compara segun el tipo (Libro o Mapa)
             foreach (Documento doc in e.listDocuemnto)
             {
-                if (doc == d)
+                if (doc is Libro && d is Libro)
                 {
-                    return true;
+                    if ((Libro)doc == (Libro)d)
+                    {
+                        return true;
+                    }
                 }
+                else if (doc is Mapa && d is Mapa)
+                {
+                    if ((Mapa)doc == (Mapa)d)
+                    {
+                        return true;
+                    }
+                }
+
             }
             return false;
         }

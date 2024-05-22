@@ -19,6 +19,7 @@ namespace Entidades
             EnRevision,
             Terminado
         }
+
         #region Propiedades
 
         public int Anio { get => this.anio; }
@@ -71,6 +72,7 @@ namespace Entidades
             informacion.AppendLine($"Título: {this.titulo}");
             informacion.AppendLine($"Autor: {this.autor}");
             informacion.AppendLine($"Año: {this.anio}");
+            informacion.AppendLine($"Cód. de barras: {this.barcode}.");
             return informacion.ToString();
         }
 

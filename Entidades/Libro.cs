@@ -48,10 +48,16 @@ namespace Entidades
 
         public override string ToString()
         {
+            string stringBase;
+            int stringBarcode;
+
             StringBuilder informacion = new StringBuilder();
-            informacion.Append(base.ToString());
-            informacion.AppendLine($"ISBN: {this.ISBN}");
-            informacion.AppendLine($"Cód. de barras: {this.Barcode}");
+
+            stringBase = base.ToString();
+            stringBarcode = stringBase.IndexOf("Cód.");
+            informacion.Append(stringBase);
+            stringBase = ($"ISBN: {ISBN}\n");
+            informacion.Insert(stringBarcode,stringBase);
             informacion.AppendLine($"Número de páginas: {this.numPaginas}.");
             return informacion.ToString();
         }

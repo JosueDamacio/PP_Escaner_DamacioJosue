@@ -57,7 +57,6 @@ namespace Entidades
         {
             StringBuilder informacion = new StringBuilder();
             informacion.Append(base.ToString());
-            informacion.AppendLine($"Cód. de barras: {this.Barcode}");
             informacion.AppendLine($"Superficie: {this.alto} * {this.ancho} = {this.Superficie} cm2.");
             return informacion.ToString();
         }
