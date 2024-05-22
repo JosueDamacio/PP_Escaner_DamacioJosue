@@ -23,7 +23,8 @@ namespace Entidades
             int totalCantidad = 0;
 
             StringBuilder sbResumen = new StringBuilder();
-            // este foreach recorrerá la lista de documentos de escaner y segun el tipo de dato que encuentre
+            // este foreach recorrerá la lista de documentos de escaner y agregará a sbResumen
+            // segun el estado que se le pase por parametro
             foreach (Documento doc in e.ListaDocumentos)
             {
                 if (doc.Estado == estado)

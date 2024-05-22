@@ -34,11 +34,10 @@ namespace Entidades
         }
         #endregion
 
-
         #region Metodos
 
         public bool CambiarEstadoDocumento(Documento d)
-        {
+        { //si la lista tiene el docimento, cambia el estado del documento
             if (ListaDocumentos.Contains(d))
             {
                 d.AvanzarEstado();
@@ -49,6 +48,7 @@ namespace Entidades
 
         public Escaner(string marca, TipoDoc tipo)
         {
+            //se crea un Escaner con un departamento dependiendo el tipo de documento
             this.marca = marca;
             this.listDocuemnto = new List<Documento>();
 
@@ -68,24 +68,28 @@ namespace Entidades
         }
 
         public static bool operator +(Escaner e, Documento d)
-        {
+        {   // se avanza el estado del doc y se agrega a la lista
+            // si el docuemnto no está en el escaner y está en paso inicio
             if (e != d && d.Estado == Documento.Paso.Inicio)
             {
                 d.AvanzarEstado();
                 e.listDocuemnto.Add(d);
                 return true;
             }
-            return false;
+            else { return false; }
         }
 
         public static bool operator ==(Escaner e, Documento d)
-        {
-            //si el Doc no está en la lista, devuelve false
-            if (e.listDocuemnto.IndexOf(d) == -1)
+        {   //se recorre la lista de documentos y si se encuentra el
+            //documento devuelve true, si no la encuentra false
+            foreach (Documento doc in e.listDocuemnto)
             {
-                return false;
+                if (doc == d)
+                {
+                    return true;
+                }
             }
-            return true;
+            return false;
         }
         #endregion
 
@@ -102,7 +106,6 @@ namespace Entidades
             mapa
         }
         #endregion
-
 
     }
 }

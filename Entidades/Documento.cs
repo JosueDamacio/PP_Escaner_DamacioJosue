@@ -46,35 +46,13 @@ namespace Entidades
             }
             else
             {
-                //esto me salvo la vida
                 this.estado++;
                 return true;
             }
-
-            /* version demencia codeando 4am:
-             * 
-             * 
-            //obtengo los valores de paso en una matriz y la casteo a un array, creo
-            Paso[] pasos = (Paso[])Enum.GetValues(typeof(Paso));
-
-            int pasoActual = Array.IndexOf(pasos, this.estado); //extraigo el paso actual y l oguardo en una var local
-
-            if (pasoActual >= 0 && pasoActual < pasos.Length - 1)
-            {
-                this.estado = pasos[pasoActual + 1];
-                retorno = true;
-            }
-            else
-            {
-                return retorno;
-            }
-            return retorno;
-            */
-
         }
 
         public Documento(string titulo, string autor, int anio, string numNormalizado, string barcode)
-        //inicializa varaibles y define estado inicio para todos
+        //inicializa varaibles y define estado "inicio" para todos
         {
             this.titulo = titulo;
             this.autor = autor;
@@ -87,16 +65,15 @@ namespace Entidades
         
         public override string ToString()
         //es override para no repetir codigo y usarlo en clases hijas
+        //falta arreglar para evitar repetir codigo (1 linea ._.)
         {
             StringBuilder informacion = new StringBuilder();
             informacion.AppendLine($"Título: {this.titulo}");
             informacion.AppendLine($"Autor: {this.autor}");
             informacion.AppendLine($"Año: {this.anio}");
-            //informacion.AppendLine($"Cód");
             return informacion.ToString();
         }
 
         #endregion
-
     }
 }

@@ -38,10 +38,13 @@ namespace Entidades
 
         public static bool operator ==(Libro l1, Libro l2)
         {
-            return l1.Barcode == l2.Barcode || l1.ISBN == l2.ISBN ||
-                l1.Titulo == l2.Titulo && l1.Autor == l2.Autor;
+            if (l1.Barcode == l2.Barcode || l1.ISBN == l2.ISBN ||
+                l1.Titulo == l2.Titulo && l1.Autor == l2.Autor)
+            {
+                return true;
+            }
+            return false;
         }
-
 
         public override string ToString()
         {
@@ -53,9 +56,6 @@ namespace Entidades
             return informacion.ToString();
         }
 
-
         #endregion
-
-
     }
 }

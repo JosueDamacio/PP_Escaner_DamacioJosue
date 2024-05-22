@@ -45,8 +45,12 @@ namespace Entidades
 
         public static bool operator ==(Mapa m1, Mapa m2)
         {
-            return m1.Barcode == m2.Barcode || m1.Titulo == m2.Titulo && m1.Autor == m2.Autor &&
-                m1.Anio == m2.Anio && m1.Superficie == m2.Superficie;
+            if (m1.Barcode == m2.Barcode || m1.Titulo == m2.Titulo && m1.Autor == m2.Autor &&
+                m1.Anio == m2.Anio && m1.Superficie == m2.Superficie)
+            {
+                return true;
+            }
+            return false;
         }
 
         public override string ToString()
@@ -58,6 +62,5 @@ namespace Entidades
             return informacion.ToString();
         }
         #endregion
-
     }
 }
