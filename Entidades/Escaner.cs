@@ -39,10 +39,12 @@ namespace Entidades
 
         public bool CambiarEstadoDocumento(Documento d)
         {
-            d.AvanzarEstado();
-            //..la consigna dice "cambiará el estado del documento dentro de la lista
-            //de coumentos." pero no estyo seguro de como implementarlo o
-            //en que caso deberia retornar true o false
+            if (ListaDocumentos.Contains(d))
+            {
+                d.AvanzarEstado();
+                return true;
+            }
+            return false;
         }
 
         public Escaner(string marca, TipoDoc tipo)
@@ -90,11 +92,14 @@ namespace Entidades
         #region Enums
         public enum Departamento
         {
-            nulo, mapoteca, procesosTecnicos
+            nulo,
+            mapoteca,
+            procesosTecnicos
         }
         public enum TipoDoc
         {
-            libro, mapa
+            libro,
+            mapa
         }
         #endregion
 

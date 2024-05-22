@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    internal class Mapa : Documento
+    public class Mapa : Documento
     {
         int alto;
         int ancho;

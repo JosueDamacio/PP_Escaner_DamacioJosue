@@ -3,62 +3,73 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Entidades.Documento;
 
 namespace Entidades
 {
-    static class Informes
+    public static class Informes
     {
+        #region Métodos
 
-        /*
-         e precisa un módulo de informes que nos permita saber, teniendo en cuenta tipo de
-        documento y estado, los siguientes datos:
-        → Extensión de lo que hay en cada uno de los estados (número de páginas en el caso de
-        libros, superficie en caso de mapas).
-        → Cantidad de ítems en cada uno de los estados.
-        → Datos de cada uno.
-
-
-        Cada uno de los informes públicos devolverá, dado un escáner y un estado en el que deban
-        encontrarse los documentos tenidos en cuenta, los siguientes datos:
-        - extensión: el total de la extensión de lo procesado según el escáner y el estado. Es
-        decir, el total de páginas en el caso de los libros y el total de cm2 en el caso de los
-        mapas.
-        - cantidad: el número total de ítems únicos procesados según el escáner y el estado.
-        - resumen: se muestran los datos de cada uno de los ítems contenidos en una lista
-        según el escáner y el estado.
-         */
-
-
-        #region Métodos.
-
-        public static void MostrarDistribuidos()
+        public static void MostrarDistribuidos(Escaner e, out int extension, out int cantidad, out string resumen)
         {
-
+            MostrarDocumentosPorEstado(e, Paso.Distribuido, out extension, out cantidad, out resumen);
         }
 
-        private static void MostrarDocumentosPorEstado()
+        private static void MostrarDocumentosPorEstado(Escaner e, Paso estado, out int extension,
+            out int cantidad,out string resumen)
         {
+            int totalExtension = 0;
+            int totalCantidad = 0;
 
+            StringBuilder sbResumen = new StringBuilder();
+            // este foreach recorrerá la lista de documentos de escaner y segun el tipo de dato que encuentre
+            foreach (Documento doc in e.ListaDocumentos)
+            {
+                if (doc.Estado == estado)
+                {
+                    totalCantidad++;
+                    sbResumen.AppendLine(doc.ToString());
+                    if (doc is Libro l)
+                    {
+                        totalExtension += l.NumPaginas;
+                    }
+                    else if (doc is Mapa m)
+                    {
+                        totalExtension += m.Superficie;
+                    }
+                }
+            }
+            if (totalCantidad != 0)
+            {
+                extension = totalExtension;
+                cantidad = totalCantidad;
+                resumen = sbResumen.ToString();
+            }
+            else
+            {
+                extension = 0;
+                cantidad = 0;
+                resumen = "No hay ningun Documento en este estado";
+            }
         }
 
-        public static void MostrarEnEscaner()
+        public static void MostrarEnEscaner(Escaner e, out int extension, out int cantidad, out string resumen)
         {
-
+            MostrarDocumentosPorEstado(e, Paso.EnEscaner, out extension, out cantidad, out resumen);
         }
 
-        public static void MostrarEnRevision()
+        public static void MostrarEnRevisión(Escaner e, out int extension, out int cantidad, out string resumen)
         {
-
+            MostrarDocumentosPorEstado(e, Paso.EnRevision, out extension, out cantidad, out resumen);
         }
 
-        public static void MostrarTerminados()
+        public static void MostrarTerminados(Escaner e, out int extension, out int cantidad, out string resumen)
         {
-
+            MostrarDocumentosPorEstado(e, Paso.Terminado, out extension, out cantidad, out resumen);
         }
-
 
         #endregion
-
 
     }
 }

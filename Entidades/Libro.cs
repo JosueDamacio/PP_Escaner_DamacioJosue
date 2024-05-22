@@ -16,7 +16,7 @@ namespace Entidades
         {
             get => NumNormalizado;
         }
-        public int NUmPaginas
+        public int NumPaginas
         {
             get => this.numPaginas;
         }

@@ -37,13 +37,27 @@ namespace Entidades
         #region Metodos
 
         public bool AvanzarEstado()
+        //avanza al estado sigueinte siempre que no esté en "Terminado"
         {
-            bool retorno = false;
+            
+            if (this.estado == Paso.Terminado)
+            {
+                return false;
+            }
+            else
+            {
+                //esto me salvo la vida
+                this.estado++;
+                return true;
+            }
 
-            //obtengo los valores de paso en una matriz
+            /* version demencia codeando 4am:
+             * 
+             * 
+            //obtengo los valores de paso en una matriz y la casteo a un array, creo
             Paso[] pasos = (Paso[])Enum.GetValues(typeof(Paso));
 
-            int pasoActual = Array.IndexOf(pasos, this.estado);
+            int pasoActual = Array.IndexOf(pasos, this.estado); //extraigo el paso actual y l oguardo en una var local
 
             if (pasoActual >= 0 && pasoActual < pasos.Length - 1)
             {
@@ -55,10 +69,12 @@ namespace Entidades
                 return retorno;
             }
             return retorno;
+            */
 
         }
 
         public Documento(string titulo, string autor, int anio, string numNormalizado, string barcode)
+        //inicializa varaibles y define estado inicio para todos
         {
             this.titulo = titulo;
             this.autor = autor;
@@ -68,13 +84,15 @@ namespace Entidades
             this.estado = Paso.Inicio;
         }
 
-        //le hacemos override para no repetir codigo y usarlo en clases hijas ;D
+        
         public override string ToString()
+        //es override para no repetir codigo y usarlo en clases hijas
         {
             StringBuilder informacion = new StringBuilder();
             informacion.AppendLine($"Título: {this.titulo}");
             informacion.AppendLine($"Autor: {this.autor}");
             informacion.AppendLine($"Año: {this.anio}");
+            //informacion.AppendLine($"Cód");
             return informacion.ToString();
         }
 
