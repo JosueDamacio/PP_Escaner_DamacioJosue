@@ -96,6 +96,10 @@ namespace Entidades
             //documento los compara segun el tipo (Libro o Mapa)
             foreach (Documento doc in e.listDocuemnto)
             {
+                //intente hacerlo mas optimo reduciendo a variables de tipo para no repetir codigo :(
+                //Type tipoListaDoc = doc.GetType();
+                //Type tipoDocumento = d.GetType();
+
                 if (doc is Libro && d is Libro)
                 {
                     if ((Libro)doc == (Libro)d)

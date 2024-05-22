@@ -51,7 +51,7 @@ namespace Entidades
             {
                 extension = 0;
                 cantidad = 0;
-                resumen = "No hay ningun Documento en este estado";
+                resumen = "";
             }
         }
 
@@ -60,7 +60,7 @@ namespace Entidades
             MostrarDocumentosPorEstado(e, Paso.EnEscaner, out extension, out cantidad, out resumen);
         }
 
-        public static void MostrarEnRevisión(Escaner e, out int extension, out int cantidad, out string resumen)
+        public static void MostrarEnRevision(Escaner e, out int extension, out int cantidad, out string resumen)
         {
             MostrarDocumentosPorEstado(e, Paso.EnRevision, out extension, out cantidad, out resumen);
         }
