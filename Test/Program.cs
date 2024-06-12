@@ -1,4 +1,11 @@
-﻿using Entidades;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+using static Entidades.Escaner;
+using Entidades;
 
 namespace Test
 {
@@ -8,18 +15,15 @@ namespace Test
         {
             // LIBROS
             // Caminos felices
-            Libro l1 = new Libro("Yerma", "García Lorca, Federico", 1995, "11111", "22222", 100);
+            Libro libro_1 = new Libro("Yerma", "García Lorca, Federico", 1995, "11111", "22222", 100);
             Libro l2 = new Libro("Bodas de sangre", "García Lorca, Federico", 1997, "11112", "22223", 200);
-            // Barcode repetido
             Libro l3 = new Libro("Codebar repetido", "García Lorca, Federico", 2003, "11113", "22222", 3);
-            // ISBN repetido
             Libro l4 = new Libro("ISBN repetido", "García Lorca, Federico", 2003, "11112", "22224", 2);
-            // Título-autor repetido
             Libro l5 = new Libro("Yerma", "García Lorca, Federico", 2003, "55555", "66666", 1);
 
             //MAPAS 
             // Caminos felices
-            Mapa m1 = new Mapa("Buenos Aires", "Instituto Geográfico de Buenos Aires", 2005, "", "99999", 30, 15); //450
+            Mapa mapa_1 = new Mapa("Buenos Aires", "Instituto Geográfico de Buenos Aires", 2005, "", "99999", 30, 15); //450
             Mapa m2 = new Mapa("Mendoza", "Instituto Geográfico de Mendoza", 2008, "", "99990", 100, 30); //300
             Mapa m3 = new Mapa("Santa Fe", "Instituto Geográfico de Santa Fe", 2010, "", "99991", 80, 30); //2400
             Mapa m4 = new Mapa("Corrientes", "Instituto Geográfico de Corrientes", 2013, "", "99992", 50, 25); //1250
@@ -29,25 +33,51 @@ namespace Test
             Mapa m6 = new Mapa("Buenos Aires", "Instituto Geográfico de Buenos Aires", 2005, "", "99993", 30, 15);//200
 
             //ESCANERS
-            Escaner l = new Escaner("HP", Escaner.TipoDoc.libro);
-            Escaner m = new Escaner("HP", Escaner.TipoDoc.mapa);
+            Escaner escanerDeLibros = new Escaner("HP", Escaner.TipoDoc.libro);
+            Escaner escanerDeMapas = new Escaner("HP", Escaner.TipoDoc.mapa);
 
-            bool pudo = l + l1;
-            pudo = l + l2;
-            pudo = l + l3;
-            pudo = l + l4;
-            pudo = l + l5;
-            pudo = m + m1;
-            pudo = m + m2;
-            pudo = m + m3;
-            pudo = m + m4;
-            pudo = m + m5;
-            pudo = m + m6;
-            pudo = m + l1;
-            pudo = l + m1;
+            bool pudo = escanerDeLibros + libro_1;
+            pudo = escanerDeLibros + l2;
+            pudo = escanerDeLibros + l3;
+            pudo = escanerDeLibros + l4;
+            pudo = escanerDeLibros + l5;
+            pudo = escanerDeMapas + mapa_1;
+            pudo = escanerDeMapas + m2;
+            pudo = escanerDeMapas + m3;
+            pudo = escanerDeMapas + m4;
+            pudo = escanerDeMapas + m5;
+            pudo = escanerDeMapas + m6;
 
-            l1.AvanzarEstado();
-            l1.AvanzarEstado();
+
+
+
+
+            Console.WriteLine("ZONA DE PRUEBAS EXCEPCIONES:");
+            Console.WriteLine("");
+            Console.WriteLine("----------------------------");
+            //ZONA DE PRUEBAS
+
+            bool pudo1 = escanerDeLibros + l3;
+
+            try
+            {
+                pudo1 = escanerDeLibros + mapa_1;
+            }
+            catch (TipoIncorrectoException ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            Console.WriteLine("----------------------------");
+
+
+
+
+
+
+
+            libro_1.AvanzarEstado();
+            libro_1.AvanzarEstado();
             l2.AvanzarEstado();
             l2.AvanzarEstado();
             m2.AvanzarEstado();
@@ -60,43 +90,43 @@ namespace Test
             m4.AvanzarEstado();
             m4.AvanzarEstado();
 
-            Informes.MostrarDistribuidos(l, out int extensionLibroDistr, out int cantidadLibroDistr, out string resumenLibroDistr);
-            Informes.MostrarEnEscaner(l, out int extensionLibroEnEsc, out int cantidadLibroEnEsc, out string resumenLibroEnEsc);
-            Informes.MostrarEnRevision(l, out int extensionLibroEnRev, out int cantidadLibroEnRev, out string resumenLibroEnRev);
-            Informes.MostrarTerminados(l, out int extensionLibroTerminado, out int cantidadLibroTerminado, out string resumenLibroTerminado);
+            Informes.MostrarDistribuidos(escanerDeLibros, out int extensionLibroDistr, out int cantidadLibroDistr, out string resumenLibroDistr);
+            Informes.MostrarEnEscaner(escanerDeLibros, out int extensionLibroEnEsc, out int cantidadLibroEnEsc, out string resumenLibroEnEsc);
+            Informes.MostrarEnRevision(escanerDeLibros, out int extensionLibroEnRev, out int cantidadLibroEnRev, out string resumenLibroEnRev);
+            Informes.MostrarTerminados(escanerDeLibros, out int extensionLibroTerminado, out int cantidadLibroTerminado, out string resumenLibroTerminado);
 
-            Informes.MostrarDistribuidos(m, out int extensionMapaDistr, out int cantidadMapaDistr, out string resumenMapaDistr);
-            Informes.MostrarEnEscaner(m, out int extensionMapaEnEsc, out int cantidadMapaEnEsc, out string resumenMapaEnEsc); ;
-            Informes.MostrarEnRevision(m, out int extensionMapaEnRev, out int cantidadMapaEnRev, out string resumenMapaEnRev);
-            Informes.MostrarTerminados(m, out int extensionMapaTerminado, out int cantidadMapaTerminado, out string resumenMapaTerminado);
+            Informes.MostrarDistribuidos(escanerDeMapas, out int extensionMapaDistr, out int cantidadMapaDistr, out string resumenMapaDistr);
+            Informes.MostrarEnEscaner(escanerDeMapas, out int extensionMapaEnEsc, out int cantidadMapaEnEsc, out string resumenMapaEnEsc);
+            Informes.MostrarEnRevision(escanerDeMapas, out int extensionMapaEnRev, out int cantidadMapaEnRev, out string resumenMapaEnRev);
+            Informes.MostrarTerminados(escanerDeMapas, out int extensionMapaTerminado, out int cantidadMapaTerminado, out string resumenMapaTerminado);
 
             int puntos = 0;
 
             if (extensionLibroDistr == 0) { puntos += 3; }
             if (cantidadLibroDistr == 0) { puntos += 1; }
-            if (resumenLibroDistr == "") { puntos += 1; } //solucionar
+            if (resumenLibroDistr == "") { puntos += 1; }
 
             if (extensionLibroEnEsc == 0) { puntos += 3; }
             if (cantidadLibroEnEsc == 0) { puntos += 1; }
-            if (resumenLibroEnEsc == "") { puntos += 1; } //solucionar
+            if (resumenLibroEnEsc == "") { puntos += 1; }
 
-            if (extensionLibroEnRev == l1.NumPaginas + l2.NumPaginas) { puntos += 3; }
+            if (extensionLibroEnRev == libro_1.NumPaginas + l2.NumPaginas) { puntos += 3; }
             if (cantidadLibroEnRev == 2) { puntos += 1; }
-            if (resumenLibroEnRev == l1.ToString() + l2.ToString()) { puntos += 1; } //solucionar
+            if (resumenLibroEnRev == libro_1.ToString() + l2.ToString()) { puntos += 1; }
 
             if (extensionLibroTerminado == 0) { puntos += 3; }
             if (cantidadLibroTerminado == 0) { puntos += 1; }
-            if (resumenLibroTerminado == "") { puntos += 1; } //solucionar
+            if (resumenLibroTerminado == "") { puntos += 1; }
 
-            if (extensionMapaDistr == m1.Superficie) { puntos += 3; }
+            if (extensionMapaDistr == mapa_1.Superficie) { puntos += 4; }
             if (cantidadMapaDistr == 1) { puntos += 1; }
-            if (resumenMapaDistr == m1.ToString()) { puntos += 1; } //AAAAAA
+            if (resumenMapaDistr == mapa_1.ToString()) { puntos += 1; }
 
             if (extensionMapaEnEsc == m2.Superficie) { puntos += 3; }
             if (cantidadMapaEnEsc == 1) { puntos += 1; }
-            if (resumenMapaEnEsc == m2.ToString()) { puntos += 1; } //AAAAAA
+            if (resumenMapaEnEsc == m2.ToString()) { puntos += 1; }
 
-            if (extensionMapaEnRev == 0) { puntos += 3; }
+            if (extensionMapaEnRev == 0) { puntos += 4; }
             if (cantidadMapaEnRev == 0) { puntos += 1; }
             if (resumenMapaEnRev == "") { puntos += 1; }
 
@@ -105,6 +135,7 @@ namespace Test
             if (resumenMapaTerminado == m3.ToString() + m4.ToString()) { puntos += 1; }
 
             Console.WriteLine($"Puntos: {puntos} / 40");
+
 
             Console.WriteLine("LIBROS DISTRIBUIDOS");
             Console.WriteLine($"Cantidad de libros ya distribuidos: {cantidadLibroDistr}.");
@@ -117,6 +148,7 @@ namespace Test
             Console.WriteLine($"Cantidad de páginas en el escáner: {extensionLibroEnEsc}.");
             Console.WriteLine(resumenLibroEnEsc);
             Console.WriteLine("---------------------");
+
 
             Console.WriteLine("LIBROS EN REVISIÓN");
             Console.WriteLine($"Cantidad de libros en el escáner: {cantidadLibroEnRev}.");
@@ -156,5 +188,6 @@ namespace Test
 
             Console.ReadKey();
         }
+
     }
 }

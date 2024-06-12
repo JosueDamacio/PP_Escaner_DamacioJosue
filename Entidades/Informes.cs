@@ -30,10 +30,10 @@ namespace Entidades
                 if (doc.Estado == estado)
                 {
                     totalCantidad++;
-                    sbResumen.AppendLine(doc.ToString());
+                    sbResumen.AppendLine(doc.ToString()); //acá estan los datos de los 2 docs
                     if (doc is Libro l)
                     {
-                        totalExtension += l.NumPaginas;
+                        totalExtension += l.NumPaginas; //suma correcta de paginas
                     }
                     else if (doc is Mapa m)
                     {
@@ -41,20 +41,18 @@ namespace Entidades
                     }
                 }
             }
-            if (totalCantidad != 0)
-            {
-                extension = totalExtension;
-                cantidad = totalCantidad;
-                resumen = sbResumen.ToString();
-            }
-            else
+            if (totalCantidad == 0)
             {
                 extension = 0;
                 cantidad = 0;
                 resumen = "";
+                return;
             }
-        }
+            extension = totalExtension;
+            cantidad = totalCantidad;
+            resumen = sbResumen.ToString();
 
+        }
         public static void MostrarEnEscaner(Escaner e, out int extension, out int cantidad, out string resumen)
         {
             MostrarDocumentosPorEstado(e, Paso.EnEscaner, out extension, out cantidad, out resumen);

@@ -46,11 +46,11 @@ namespace Entidades
             }
             return false;
         }
-
         public Escaner(string marca, TipoDoc tipo)
         {
             //se crea un Escaner con un departamento dependiendo el tipo de documento
             this.marca = marca;
+            this.tipo = tipo;
             this.listDocuemnto = new List<Documento>();
 
             if (tipo == TipoDoc.libro)
@@ -72,51 +72,57 @@ namespace Entidades
         {   // se avanza el estado del doc y se agrega a la lista
             // si el docuemnto no está en el escaner y está en paso inicio
             // tambien se valida que no haya mapas en procesos tecnicos ni libros en mapoteca
-            if (e != d && d.Estado == Documento.Paso.Inicio)
+            try
             {
-                if (e.locacion == Departamento.mapoteca && d is Mapa)
+                if ((e != d) && (d.Estado == Documento.Paso.Inicio))
                 {
                     d.AvanzarEstado();
-                    e.listDocuemnto.Add(d);
+                    e.ListaDocumentos.Add(d);
                     return true;
                 }
-                else if (e.locacion == Departamento.procesosTecnicos && d is Libro)
-                {
-                    d.AvanzarEstado();
-                    e.listDocuemnto.Add(d);
-                    return true;
-                }
+
                 return false;
             }
-            else { return false; }
+            catch (TipoIncorrectoException ex)
+            {
+                throw new TipoIncorrectoException
+                    ("El Documento no se pudo añadir a la lista."
+                    , "Escaner", "Sobrecarga de +", ex);
+            }
         }
 
         public static bool operator ==(Escaner e, Documento d)
         {   //se recorre la lista de documentos y si se encuentra el
             //documento los compara segun el tipo (Libro o Mapa)
-            foreach (Documento doc in e.listDocuemnto)
+            if (e.Tipo == TipoDoc.mapa && d is Mapa || e.Tipo == TipoDoc.libro && d is Libro)
             {
-                //intente hacerlo mas optimo reduciendo a variables de tipo para no repetir codigo :(
-                //Type tipoListaDoc = doc.GetType();
-                //Type tipoDocumento = d.GetType();
-
-                if (doc is Libro && d is Libro)
+                foreach (Documento doc in e.listDocuemnto)
                 {
-                    if ((Libro)doc == (Libro)d)
+                    //intente hacerlo mas optimo reduciendo a variables de tipo para no repetir codigo :(
+                    //Type tipoListaDoc = doc.GetType();
+                    //Type tipoDocumento = d.GetType();
+
+                    if (doc is Libro && d is Libro)
                     {
-                        return true;
+                        if ((Libro)doc == (Libro)d)
+                        {
+                            return true;
+                        }
+                    }
+                    else if (doc is Mapa && d is Mapa)
+                    {
+                        if ((Mapa)doc == (Mapa)d)
+                        {
+                            return true;
+                        }
                     }
                 }
-                else if (doc is Mapa && d is Mapa)
-                {
-                    if ((Mapa)doc == (Mapa)d)
-                    {
-                        return true;
-                    }
-                }
-
+                return false;
             }
-            return false;
+            else
+            {
+                throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Escaner", "Sobrecarga de ==");
+            }
         }
         #endregion
 

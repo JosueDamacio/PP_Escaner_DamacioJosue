@@ -63,7 +63,6 @@ namespace Entidades
             this.estado = Paso.Inicio;
         }
 
-        
         public override string ToString()
         //es override para no repetir codigo y usarlo en clases hijas
         //falta arreglar para evitar repetir codigo (1 linea ._.)
